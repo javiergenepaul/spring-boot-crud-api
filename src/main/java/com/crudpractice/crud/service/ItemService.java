@@ -15,4 +15,26 @@ public class ItemService {
     public List<Item> getItemList() {
         return itemRepository.findAll();
     }
+
+    public Item getItemById(long id) {
+        return itemRepository.findById(id).orElse(null);
+    }
+
+    public Item saveItem(Item item) {
+        return itemRepository.save(item);
+    }
+
+    public Item updateItem(long id, Item item) {
+        Item itemSelected = itemRepository.findById(id).orElse(null);
+        itemSelected.setName(item.getName());
+        itemSelected.setDescription(item.getDescription());
+        itemSelected.setPrice(item.getPrice());
+        return itemRepository.save(itemSelected);
+    }
+
+    public Item deleteProduct(long id) {
+        Item itemSelected = itemRepository.findById(id).orElse(null);
+        itemRepository.deleteById(id);
+        return itemSelected;
+    }
 }

@@ -23,8 +23,6 @@ public class Item {
     @NotBlank
     @Size(max = 50)
     private String description;
-    @NotBlank
-    @Size(max = 50)
     private double price;
 
 }
