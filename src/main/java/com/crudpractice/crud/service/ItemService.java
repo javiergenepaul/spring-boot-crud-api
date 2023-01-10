@@ -1,5 +1,6 @@
 package com.crudpractice.crud.service;
 
+import com.crudpractice.crud.dto.ItemDto;
 import com.crudpractice.crud.model.Item;
 import com.crudpractice.crud.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,15 @@ public class ItemService {
         return itemRepository.findById(id).orElse(null);
     }
 
-    public Item saveItem(Item item) {
-        return itemRepository.save(item);
+    public Item saveItem(ItemDto item) {
+        Item tm = new Item(null, item.getName(),item.getDescription(), item.getPrice());
+//        tm.setName(item.getName());
+//        tm.setDescription(item.getDescription());
+//        tm.setPrice(item.getPrice());
+        return itemRepository.save(tm);
     }
 
-    public Item updateItem(long id, Item item) {
+    public Item updateItem(long id, ItemDto item) {
         Item itemSelected = itemRepository.findById(id).orElse(null);
         itemSelected.setName(item.getName());
         itemSelected.setDescription(item.getDescription());

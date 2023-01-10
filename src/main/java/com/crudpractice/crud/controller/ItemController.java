@@ -1,5 +1,6 @@
 package com.crudpractice.crud.controller;
 
+import com.crudpractice.crud.dto.ItemDto;
 import com.crudpractice.crud.model.Item;
 import com.crudpractice.crud.repository.ItemRepository;
 import com.crudpractice.crud.response.ApiResponseHandler;
@@ -35,7 +36,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public ApiResponseHandler addItem(@RequestBody Item item){
+    public ApiResponseHandler addItem(@RequestBody ItemDto item){
         return ApiResponseHandler.builder()
                 .Message("added item successfully")
                 .IsSuccess(true)
@@ -45,7 +46,7 @@ public class ItemController {
     }
 
     @PutMapping("/update/{id}")
-    public ApiResponseHandler updateItem(@PathVariable Long id, @RequestBody Item item) {
+    public ApiResponseHandler updateItem(@PathVariable Long id, @RequestBody ItemDto item) {
         return ApiResponseHandler.builder()
                 .Message("update item successfully")
                 .IsSuccess(true)
