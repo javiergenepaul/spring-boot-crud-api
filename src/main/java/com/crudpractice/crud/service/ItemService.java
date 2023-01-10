@@ -22,10 +22,10 @@ public class ItemService {
     }
 
     public Item saveItem(ItemDto item) {
-        Item tm = new Item(null, item.getName(),item.getDescription(), item.getPrice());
-//        tm.setName(item.getName());
-//        tm.setDescription(item.getDescription());
-//        tm.setPrice(item.getPrice());
+        Item tm = new Item();
+        tm.setName(item.getName());
+        tm.setDescription(item.getDescription());
+        tm.setPrice(item.getPrice());
         return itemRepository.save(tm);
     }
 

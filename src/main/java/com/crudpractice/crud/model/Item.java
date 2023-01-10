@@ -5,13 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -19,12 +17,14 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull(message = "not null name")
+    @NotBlank
     private String name;
+    @NotBlank
     private String description;
-    @DecimalMin(value = "10.0", message = "min of 10")
+    @DecimalMin(value = "0.0")
     private double price;
 
-
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name= "tags_id", nullable = false)
+    private Tag tags;
 }
