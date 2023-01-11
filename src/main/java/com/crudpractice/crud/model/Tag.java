@@ -1,5 +1,6 @@
 package com.crudpractice.crud.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,16 @@ public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "tags", cascade = CascadeType.ALL)
-    private Set<Item> item;
-    private String tag;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "status")
     private boolean status;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, mappedBy = "tags")
+    @JsonIgnore
+    private Set<Item> items = new HashSet<Item>();
 }
