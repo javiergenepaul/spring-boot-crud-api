@@ -30,4 +30,14 @@ public class Tag {
     }, mappedBy = "tags")
     @JsonIgnore
     private Set<Item> items = new HashSet<Item>();
+
+    public void addItems(Item item) {
+        this.items.add(item);
+        item.getTags().add(this);
+    }
+
+    public void removeItems(Item item) {
+        this.items.remove(item);
+        item.getTags().remove(this);
+    }
 }

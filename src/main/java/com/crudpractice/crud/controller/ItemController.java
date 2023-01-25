@@ -4,10 +4,14 @@ import com.crudpractice.crud.dto.ItemDto;
 import com.crudpractice.crud.model.Item;
 import com.crudpractice.crud.repository.ItemRepository;
 import com.crudpractice.crud.response.ApiResponseHandler;
+import com.crudpractice.crud.response.ItemListCustomQueryResponse;
 import com.crudpractice.crud.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("item")
@@ -63,5 +67,16 @@ public class ItemController {
                 .Status(HttpStatus.OK.value())
                 .Data(itemService.deleteProduct(id))
                 .build();
+    }
+
+    @GetMapping("/query")
+    public Collection<?> getItemsByCustomQuery(){
+        return itemService.getAllItemByQuery();
+//        return ApiResponseHandler.builder()
+//                .Message("Custom Query")
+//                .IsSuccess(true)
+//                .Status(HttpStatus.OK.value())
+//                .Data(itemService.getItemList())
+//                .build();
     }
 }

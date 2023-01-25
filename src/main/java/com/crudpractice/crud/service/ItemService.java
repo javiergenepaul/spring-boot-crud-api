@@ -3,9 +3,11 @@ package com.crudpractice.crud.service;
 import com.crudpractice.crud.dto.ItemDto;
 import com.crudpractice.crud.model.Item;
 import com.crudpractice.crud.repository.ItemRepository;
+import com.crudpractice.crud.response.ItemListCustomQueryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -21,19 +23,23 @@ public class ItemService {
         return itemRepository.findById(id).orElse(null);
     }
 
-    public Item saveItem(ItemDto item) {
-        Item tm = new Item();
-        tm.setName(item.getName());
-        tm.setDescription(item.getDescription());
-        tm.setPrice(item.getPrice());
-        return itemRepository.save(tm);
+    public Item saveItem(ItemDto itemDto) {
+        Item item = Item.builder()
+                .name(itemDto.getName())
+                .description(itemDto.getDescription())
+                .price(itemDto.getPrice())
+                .tags(itemDto.getTags())
+                .build();
+        return itemRepository.save(item);
     }
 
-    public Item updateItem(long id, ItemDto item) {
+    public Item updateItem(long id, ItemDto itemDto) {
         Item itemSelected = itemRepository.findById(id).orElse(null);
-        itemSelected.setName(item.getName());
-        itemSelected.setDescription(item.getDescription());
-        itemSelected.setPrice(item.getPrice());
+        Item item = itemSelected.builder()
+                .name(itemDto.getName())
+                .description(itemDto.getDescription())
+                .price(itemDto.getPrice())
+                .build();
         return itemRepository.save(itemSelected);
     }
 
@@ -41,5 +47,9 @@ public class ItemService {
         Item itemSelected = itemRepository.findById(id).orElse(null);
         itemRepository.deleteById(id);
         return itemSelected;
+    }
+
+    public Collection<?> getAllItemByQuery() {
+        return itemRepository.getQuery();
     }
 }
